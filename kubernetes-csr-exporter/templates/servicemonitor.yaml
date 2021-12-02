@@ -1,0 +1,12 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "kubernetes-csr-exporter.fullname" . }}
+  labels:
+    {{- include "kubernetes-csr-exporter.labels" . | nindent 4 }}
+spec:
+  endpoints:
+    - port: http
+  jobLabel: {{ include "kubernetes-csr-exporter.fullname" . }}
+  selector:
+    matchLabels: {{ include "kubernetes-csr-exporter.matchLabels" . | nindent 6 }}
